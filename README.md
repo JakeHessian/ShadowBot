@@ -24,6 +24,6 @@ And the applicant receives a DM from the bot that they were accepted with a cert
 ![Alt text](https://github.com/JakeHessian/ShadowBot/blob/main/screenshots/response2.PNG "Channel Prompt")
 
 ## Reddit Image Grabber
-A user may run the command **.get <subreddit>** to pull a random image from the subreddit. Sample usage: **.get wholesomememes** sends back:
+A user may run the command **.get subreddit** to pull a random image from the subreddit. Sample usage: **.get wholesomememes** sends back:
   
 ![Alt text](https://github.com/JakeHessian/ShadowBot/blob/main/screenshots/redditgrabber.png "Channel Prompt")
