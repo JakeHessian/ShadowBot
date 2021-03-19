@@ -34,7 +34,12 @@ class Applications(commands.Cog):
         self.shadowRecruitRole = discord.utils.get(
             ctx.message.author.guild.roles, name="Shadow Recruits")
         self.farmerRole = discord.utils.get(
-            ctx.message.author.guild.roles, name="FARMER")
+            ctx.message.author.guild.roles, name="Farmer")
+        #check to see if user already has an open interview
+        for interview in self.interviews:
+            if (interview.memberName in ctx.message.author.name):
+                await ctx.send("You already have an open application {}".format(ctx.message.author.name))
+                return
         await ctx.send("Starting application. Please check your DMs **{}** 👍".format(ctx.message.author.name))
         await ctx.author.send("  --  Hello **{}**! Beginning your application:  --  \n  --  To cancel application, send **.cancel**".format(ctx.message.author.name))
         print("Creating new interview instance")
@@ -43,8 +48,6 @@ class Applications(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        #print("Message here")
-        # may be easier on resources to checkout if interviews exist (N)
         if (len(self.interviews) != 0 and message != ".cancel"):
             # check if message is a private channel
             if (message.channel.type == discord.ChannelType.private):
@@ -95,9 +98,6 @@ class Applications(commands.Cog):
                                 await lastMessage.add_reaction("🔫")
                                 await lastMessage.add_reaction("⛔")
                             break  # no need to look through other interviews
-        # await self.bot.process_commands(message)
-# ID:376521130791665675
-     # 376521130791665675 376521130791665675
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
@@ -116,9 +116,9 @@ class Applications(commands.Cog):
                         return
                     if(str(reaction.emoji) == "👩‍🌾"):
                         # print("Adding role to user.")
-                        # await member.add_roles(self.farmerRole)
+                        await member.add_roles(self.farmerRole)
                         await member.add_roles(self.shadowRecruitRole)
-                        # await discord.Member.add_roles(member, self.farmerRole)
+                        #await discord.Member.add_roles(member, self.farmerRole)
                         # await discord.Member.add_roles(member, self.shadowRecruitRole)
                         # print("Complete")
                         await channel.send("User: **{}** was accepted. as **{}**".format(member.name, self.farmerRole.name))
